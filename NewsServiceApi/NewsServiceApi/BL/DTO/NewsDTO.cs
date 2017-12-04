@@ -1,17 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace NewsServiceApi.BL.DTO
 {
     public class NewsDTO
     {
         public long Id { get; set; }
+
+        [Required(ErrorMessage = "Please enter News heading")]
+        [StringLength(200, ErrorMessage ="The heading of news can not excced 200 characters")]
         public string Heading { get; set; }
+
+        [Required(ErrorMessage = "Please enter News text")]
+        [StringLength(2000, ErrorMessage = "The text of news can not excced 2000 characters")]
         public string Body { get; set; }
+
         public DateTime DateCreate { get; set; }
+
         public DateTime? DateUpdate { get; set; }
+
+        [Required(ErrorMessage ="Please select News category")]
         public int IdCategory { get; set; }
     }
 }

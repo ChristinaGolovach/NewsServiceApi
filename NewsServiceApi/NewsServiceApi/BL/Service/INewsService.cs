@@ -8,7 +8,10 @@ namespace NewsServiceApi.BL.Service
 {
     public interface INewsService
     {
-        //Task<NewsDTO> GetByIdAsync(long id);
-        Task<IEnumerable<NewsDTO>> GetAllNewsAsync(); 
+        Task<NewsDTO> GetByIdAsync(long id);
+        Task<IEnumerable<NewsDTO>> GetAllNewsAsync();
+        
+
+        
     }
 }

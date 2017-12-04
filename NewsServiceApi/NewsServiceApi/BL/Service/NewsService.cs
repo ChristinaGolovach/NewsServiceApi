@@ -16,11 +16,21 @@ namespace NewsServiceApi.BL.Service
         {
             _newsRepository = newsRepository;
         }
-
+        //TODO paging ???
         public async Task<IEnumerable<NewsDTO>> GetAllNewsAsync()
         {
             IEnumerable<News> news =await _newsRepository.GetAllAsync();
             return AutoMapper.Mapper.Map<IEnumerable<News>, List<NewsDTO>>(news);
         }
+
+        //TODO: can I use lambda expression instead recall ?
+        public async Task<NewsDTO> GetByIdAsync(long id)
+        {
+            News news =  await _newsRepository.GetByIdAsync(id);
+            return AutoMapper.Mapper.Map<News, NewsDTO>(news);
+        }
+
+
+
     }
 }

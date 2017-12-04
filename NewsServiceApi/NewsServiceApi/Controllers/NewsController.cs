@@ -14,17 +14,27 @@ namespace NewsServiceApi.Controllers
     {
         private readonly INewsService _newsService;
 
-        public NewsController (INewsService newsService)
+        public NewsController(INewsService newsService)
         {
             _newsService = newsService;
         }
 
         // GET: api/news
         [HttpGet]
-        public async Task <IEnumerable<NewsDTO>> Get()
+        public async Task<IEnumerable<NewsDTO>> Get()
         {
             return await _newsService.GetAllNewsAsync();
         }
+
+        // GET: api/news/{id}
+        [HttpGet("{id}")]
+        public async Task <NewsDTO> Get(long id)
+        {
+            return await _newsService.GetByIdAsync(id);
+        }
+
+
+        
 
         
     }
