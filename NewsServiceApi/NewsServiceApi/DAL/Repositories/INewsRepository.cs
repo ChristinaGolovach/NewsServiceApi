@@ -4,7 +4,7 @@ using NewsServiceApi.DAL.Model;
 
 namespace NewsServiceApi.DAL.Repositories
 {
-    interface INewsRepository
+    public interface INewsRepository
     {
         Task<News> GetByIdAsync(long Id);
         Task<IEnumerable<News>> GetAllAsync();

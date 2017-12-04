@@ -8,6 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using NewsServiceApi.DAL.Repositories;
+using NewsServiceApi.BL.DTO;
+using NewsServiceApi.BL.Service;
+using NewsServiceApi.DAL.Model;
+using AutoMapper;
 
 namespace NewsServiceApi
 {
@@ -24,6 +29,15 @@ namespace NewsServiceApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddTransient<INewsRepository, NewsRepository>();
+            services.AddTransient<INewsService, NewsService>();
+            services.AddAutoMapper();
+            
+            //TODO ask how better use mapper
+
+            /*
+            var configMapper = new AutoMapper.MapperConfiguration(cfg => { cfg.CreateMap<News, NewsDTO>(); });
+            var mapper = configMapper.CreateMapper();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

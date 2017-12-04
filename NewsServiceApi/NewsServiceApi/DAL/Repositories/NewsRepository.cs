@@ -51,8 +51,8 @@ namespace NewsServiceApi.DAL.Repositories
         {
             using (IDbConnection dbConnection = _connection)
             {
-                string query = @"INSERT INTO news (Heading, Body, DateCreate, DateUpdate, IdCategory)
-                                            VALUES(@Heading, @Body, @DateCreate, @DateUpdate, @IdCategory)";
+                string query = @"INSERT INTO news (Heading, Body, DateCreate, IdCategory)
+                                            VALUES(@Heading, @Body, @DateCreate, @IdCategory)";
                 await dbConnection.ExecuteAsync(query, news);
             }
         }
