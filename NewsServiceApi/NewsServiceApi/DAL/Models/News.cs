@@ -8,7 +8,7 @@ namespace NewsServiceApi.DAL.Model
         public string Heading { get; set; }
         public string Body { get; set; }
         public DateTime DateCreate { get; set; }
-        public DateTime? DateUpdate { get; set; }
+        public DateTime? DateUpdate { get; set; }        
         public int IdCategory { get; set; }
     }
 }

@@ -3,6 +3,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NewsServiceApi.BL.Service;
 using NewsServiceApi.BL.DTO;
+using NewsServiceApi.BL.Types;
+using System.Linq;
+using System;
+using NewsServiceApi.BL.Types;
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,16 +30,21 @@ namespace NewsServiceApi.Controllers
             return await _newsService.GetAllNewsAsync();
         }
 
-        // GET: api/news/{id}
-        [HttpGet("{id}")]
-        public async Task <NewsDTO> Get(long id)
+        // GET: api/news/{nameCategory}
+        [HttpGet("{nameCategory}")]
+        public async Task<IEnumerable<NewsDTO>> Get(string nameCategory)
         {
-            return await _newsService.GetByIdAsync(id);
+            int idCategory = EnumExtention.GetValues<NewsCategoryTypes>().FirstOrDefault(l => l.Name == nameCategory).Value;  
+            IEnumerable<NewsDTO> allNews = await _newsService.GetAllNewsAsync();
+            return allNews.Where(news => news.IdCategory == idCategory);
+           // return await _newsService.GetAllNewsAsync();
         }
 
-
-        
-
-        
+        // GET: api/news/{id}
+        [HttpGet("{id}")]
+        public async Task<NewsDTO> Get(long id)
+        {
+            return await _newsService.GetByIdAsync(id);
+        }      
     }
 }
