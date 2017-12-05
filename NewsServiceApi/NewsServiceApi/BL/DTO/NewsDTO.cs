@@ -20,6 +20,6 @@ namespace NewsServiceApi.BL.DTO
         public DateTime? DateUpdate { get; set; }
 
         [Required(ErrorMessage ="Please select News category")]
-        public int IdCategory { get; set; }
+        public int IdCategory { get; set; }      
     }
 }

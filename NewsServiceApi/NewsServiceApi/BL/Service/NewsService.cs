@@ -30,6 +30,12 @@ namespace NewsServiceApi.BL.Service
             return AutoMapper.Mapper.Map<News, NewsDTO>(news);
         }
 
+        public async Task CreateNewsAsync(NewsDTO news)
+        {
+            News newNews = AutoMapper.Mapper.Map<NewsDTO, News>(news);
+            await _newsRepository.CreateAsync(newNews);
+        }
+
 
 
     }

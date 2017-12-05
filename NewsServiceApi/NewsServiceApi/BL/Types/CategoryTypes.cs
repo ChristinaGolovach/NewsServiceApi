@@ -7,7 +7,7 @@ namespace NewsServiceApi.BL.Types
 {
     public enum NewsCategoryTypes
     {
-        Important,
-        Daily
+        Important=1,
+        Daily=2
     }
 }

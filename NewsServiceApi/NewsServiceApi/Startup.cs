@@ -32,6 +32,7 @@ namespace NewsServiceApi
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<INewsService, NewsService>();
             services.AddAutoMapper();
+            services.AddRouting();
             
             //TODO ask how better use mapper
 
