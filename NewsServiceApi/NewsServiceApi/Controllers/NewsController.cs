@@ -30,19 +30,18 @@ namespace NewsServiceApi.Controllers
             return await _newsService.GetAllNewsAsync();
         }
 
-        // GET: api/news/{nameCategory}
+        // GET: api/news/{nameCategory} for instance  - api/news/Important
         [HttpGet("{nameCategory}")]
-        public async Task<IEnumerable<NewsDTO>> Get(string nameCategory)
+        public async Task<IEnumerable<NewsDTO>> GetByCategory(string nameCategory)
         {
-            int idCategory = EnumExtention.GetValues<NewsCategoryTypes>().FirstOrDefault(l => l.Name == nameCategory).Value;  
+            int idCategory = EnumExtention.GetValues<NewsCategoryTypes>().FirstOrDefault(e => e.Name == nameCategory).Value;  
             IEnumerable<NewsDTO> allNews = await _newsService.GetAllNewsAsync();
-            return allNews.Where(news => news.IdCategory == idCategory);
-           // return await _newsService.GetAllNewsAsync();
+            return allNews.Where(news => news.IdCategory == idCategory);           
         }
 
         // GET: api/news/{id}
         [HttpGet("{id}")]
-        public async Task<NewsDTO> Get(long id)
+        public async Task<NewsDTO> GetById(long id)
         {
             return await _newsService.GetByIdAsync(id);
         }      
