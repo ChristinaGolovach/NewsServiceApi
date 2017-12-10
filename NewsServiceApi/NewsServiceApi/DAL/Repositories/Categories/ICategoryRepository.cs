@@ -6,7 +6,7 @@ using NewsServiceApi.DAL.Models;
 
 namespace NewsServiceApi.DAL.Repositories.Categories
 {
-    interface ICategoryRepository
+    public interface ICategoryRepository
     {
         Task<IEnumerable<Category>> GetAllCategoriesAsync();
 

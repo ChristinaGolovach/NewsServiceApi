@@ -3,10 +3,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using NewsServiceApi.BL.Service;
 using NewsServiceApi.BL.DTO;
-using NewsServiceApi.BL.Types;
 using System.Linq;
 using System;
-using NewsServiceApi.BL.Types;
+
 
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,24 +23,29 @@ namespace NewsServiceApi.Controllers
         }
 
         // GET: api/news        
-        [HttpGet]        
+        [HttpGet]
         public async Task<IActionResult> AllNewsAsync()
         {
-            var allNews = await _newsService.GetAllNewsAsync();
-            if (allNews == null)
+            var allNewsCategories = await _newsService.GetAllNewsAndCategoriesAsync();
+            if (allNewsCategories == null)
                 return NotFound();
-            return Ok(allNews);
+            return Ok(allNewsCategories);
         }
 
-        // GET: api/news/{nameCategory}     
-        [HttpGet("{nameCategory}")]
-        public async Task<IEnumerable<NewsDTO>> GetByCategory(string nameCategory)
+        
+
+        // GET: api/news/{category}     
+        [HttpGet("{category}")]        
+        public async Task<IEnumerable<NewsDTO>> GetByCategory(string category)
         {
-            int idCategory = EnumExtention.GetValues<NewsCategoryTypes>().FirstOrDefault(e => e.Name == nameCategory).Value;  
-            IEnumerable<NewsDTO> allNews = await _newsService.GetAllNewsAsync();
-            return allNews.Where(news => news.IdCategory == idCategory);           
+            //int idCategory = EnumExtention.GetValues<NewsCategoryTypes>().FirstOrDefault(e => e.Name == category).Value;  
+            // IEnumerable<NewsDTO> allNews = await _newsService.GetAllNewsAsync();
+            //return allNews.Where(news => news.IdCategory == idCategory);     
+            IEnumerable<NewsDTO> allNews = await _newsService.GetByCategoryAsync(category);
+            return allNews;
         }
 
+        
         // GET: api/news/{category}/{id}
         [HttpGet]
         [Route("{category}/{id:int}")]
@@ -49,6 +53,7 @@ namespace NewsServiceApi.Controllers
         {
             return await _newsService.GetByIdAsync(id);
         }
+        
 
         // GET: api/news/{id}
         [HttpGet("{id:int}")]

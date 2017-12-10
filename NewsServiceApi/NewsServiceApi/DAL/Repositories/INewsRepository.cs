@@ -8,6 +8,7 @@ namespace NewsServiceApi.DAL.Repositories
     {
         Task<News> GetByIdAsync(int Id);
         Task<IEnumerable<News>> GetAllAsync();
+        Task<IEnumerable<News>> GetAllByCategoryAsync(string nameCategory);
        // Task<IEnumerable<News>> GetByCategoryAsync();
         Task CreateAsync(News news);
         Task UpdateAsync(News news);

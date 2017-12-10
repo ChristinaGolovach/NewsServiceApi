@@ -49,6 +49,19 @@ namespace NewsServiceApi.DAL.Repositories
             }
         }
 
+        public async Task<IEnumerable<News>> GetAllByCategoryAsync(string category)
+        {
+            using (IDbConnection dbConnection = _connection)
+            {
+                string query = @"SELECT n.* 
+                                FROM news AS n
+                                JOIN news_category AS c ON n.idCategory =  c.Id
+                                WHERE c.Name = @category";
+                var news = await dbConnection.QueryAsync<News>(query, new { category });
+                return news;
+            }
+        }
+
         public async Task CreateAsync(News news)
         {
             using (IDbConnection dbConnection = _connection)

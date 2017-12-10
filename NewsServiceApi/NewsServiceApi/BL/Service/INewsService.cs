@@ -10,6 +10,8 @@ namespace NewsServiceApi.BL.Service
     {
         Task<NewsDTO> GetByIdAsync(int id);
         Task<IEnumerable<NewsDTO>> GetAllNewsAsync();
+        Task<NewsCategoriesDTO> GetAllNewsAndCategoriesAsync();
+        Task<IEnumerable<NewsDTO>> GetByCategoryAsync(string nameCaregory);
         Task CreateNewsAsync(NewsDTO news);
     }
 }
