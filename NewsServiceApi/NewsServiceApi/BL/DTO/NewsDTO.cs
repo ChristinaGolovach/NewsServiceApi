@@ -5,7 +5,7 @@ namespace NewsServiceApi.BL.DTO
 {
     public class NewsDTO
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Please enter News heading")]
         [StringLength(200, ErrorMessage ="The heading of news can not excced 200 characters")]
@@ -15,9 +15,7 @@ namespace NewsServiceApi.BL.DTO
         [StringLength(2000, ErrorMessage = "The text of news can not excced 2000 characters")]
         public string Body { get; set; }
 
-        public DateTime DateCreate { get; set; }
-
-        public DateTime? DateUpdate { get; set; }
+        public DateTime Date { get; set; }
 
         [Required(ErrorMessage ="Please select News category")]
         public int IdCategory { get; set; }      

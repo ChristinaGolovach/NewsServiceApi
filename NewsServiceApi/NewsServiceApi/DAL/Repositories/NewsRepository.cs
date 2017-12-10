@@ -6,7 +6,7 @@ using System.Data;
 using Dapper;
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
-using NewsServiceApi.DAL.Model;
+using NewsServiceApi.DAL.Models;
 
 namespace NewsServiceApi.DAL.Repositories
 {
@@ -26,7 +26,7 @@ namespace NewsServiceApi.DAL.Repositories
             _connectinString = _configuration["Data:ConnectionString:MySqlConnection"];
         }
 
-        public async Task<News> GetByIdAsync(long id)
+        public async Task<News> GetByIdAsync(int id)
         {
             using(IDbConnection dbConnection = _connection)
             {
@@ -36,7 +36,9 @@ namespace NewsServiceApi.DAL.Repositories
             }
         }
 
-        //TODO: read (habrahabr) about CongigureAwait(false). Think about paging
+       // public async Task<Category> Get
+
+        //TODO: Think about paging
         public async Task<IEnumerable<News>> GetAllAsync()
         {
             using (IDbConnection dbConnection = _connection)
@@ -51,8 +53,8 @@ namespace NewsServiceApi.DAL.Repositories
         {
             using (IDbConnection dbConnection = _connection)
             {
-                string query = @"INSERT INTO news (Heading, Body, DateCreate, IdCategory)
-                                            VALUES(@Heading, @Body, @DateCreate, @IdCategory)";
+                string query = @"INSERT INTO news (Heading, Body, Date, IdCategory)
+                                            VALUES(@Heading, @Body, @Date, @IdCategory)";
                 await dbConnection.ExecuteAsync(query, news);
             }
         }
@@ -63,13 +65,13 @@ namespace NewsServiceApi.DAL.Repositories
             using (IDbConnection dbConnection = _connection)
             {
                 string query = @"UPDATE news
-                                SET Heading=@Heading, Body=@Body, DateUpdate=@DateUpdate, IdCategory=@IdCategory
+                                SET Heading=@Heading, Body=@Body, Date=@Date, IdCategory=@IdCategory
                                 WHERE Id = @Id";
                 await dbConnection.ExecuteAsync(query, news);
             }
         }
 
-        public async Task DeleteAsync(long id)
+        public async Task DeleteAsync(int id)
         {
             using (IDbConnection dbConnection = _connection)
             {

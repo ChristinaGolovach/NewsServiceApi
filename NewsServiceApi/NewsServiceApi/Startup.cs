@@ -9,9 +9,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using NewsServiceApi.DAL.Repositories;
+using NewsServiceApi.DAL.Repositories.Categories;
 using NewsServiceApi.BL.DTO;
 using NewsServiceApi.BL.Service;
-using NewsServiceApi.DAL.Model;
+using NewsServiceApi.DAL.Models;
 using AutoMapper;
 
 namespace NewsServiceApi
@@ -31,6 +32,7 @@ namespace NewsServiceApi
             services.AddMvc();
             services.AddTransient<INewsRepository, NewsRepository>();
             services.AddTransient<INewsService, NewsService>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
             services.AddAutoMapper();
             services.AddRouting();
             

@@ -1,14 +1,13 @@
 ﻿using System;
 
-namespace NewsServiceApi.DAL.Model
+namespace NewsServiceApi.DAL.Models
 {
     public class News
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
         public string Heading { get; set; }
         public string Body { get; set; }
-        public DateTime DateCreate { get; set; }
-        public DateTime? DateUpdate { get; set; }        
+        public DateTime? Date { get; set; }     
         public int IdCategory { get; set; }
     }
 }

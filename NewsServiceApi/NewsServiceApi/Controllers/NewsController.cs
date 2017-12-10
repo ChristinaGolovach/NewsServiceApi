@@ -13,7 +13,7 @@ using NewsServiceApi.BL.Types;
 
 namespace NewsServiceApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/news")]
     public class NewsController : Controller
     {
         private readonly INewsService _newsService;
@@ -24,33 +24,39 @@ namespace NewsServiceApi.Controllers
         }
 
         // GET: api/news        
-        [HttpGet]
-        public async Task<IEnumerable<NewsDTO>> Get()
+        [HttpGet]        
+        public async Task<IActionResult> AllNewsAsync()
         {
-            return await _newsService.GetAllNewsAsync();
+            var allNews = await _newsService.GetAllNewsAsync();
+            if (allNews == null)
+                return NotFound();
+            return Ok(allNews);
         }
 
-        // GET: api/news/{nameCategory} for instance  - api/news/Important        
-         
+        // GET: api/news/{nameCategory}     
         [HttpGet("{nameCategory}")]
-        //[Route("[GetByCategory]")]
-        //[RouteAttribute ("{nameCategory}")]
         public async Task<IEnumerable<NewsDTO>> GetByCategory(string nameCategory)
         {
             int idCategory = EnumExtention.GetValues<NewsCategoryTypes>().FirstOrDefault(e => e.Name == nameCategory).Value;  
             IEnumerable<NewsDTO> allNews = await _newsService.GetAllNewsAsync();
             return allNews.Where(news => news.IdCategory == idCategory);           
         }
-        
+
+        // GET: api/news/{category}/{id}
+        [HttpGet]
+        [Route("{category}/{id:int}")]
+        public async Task<NewsDTO> GetById(string category, int id)
+        {
+            return await _newsService.GetByIdAsync(id);
+        }
 
         // GET: api/news/{id}
         [HttpGet("{id:int}")]
-        public async Task<NewsDTO> GetById(long id)
+        public async Task<NewsDTO> GetById(int id)
         {
             return await _newsService.GetByIdAsync(id);
-        }  
-        
-        [ProducesResponseType(201)]
+        }
+               
         [HttpPost]
         public async Task AddNewsAsync([FromBody]NewsDTO news)
         {
